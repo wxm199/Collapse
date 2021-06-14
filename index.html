@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 0 4px #ccc;
+      }
+      .container {
+        font-size: 13px;
+      }
+      .callapse .item .title {
+        font-weight: 500;
+        line-height: 50px;
+        border-top: 1px solid #ccc;
+        /* border-bottom: 1px solid #ccc; */
+        transition: all 0.3s;
+      }
+
+      .callapse .item:last-child .title {
+        border-bottom: 1px solid #ccc;
+      }
+
+      .callapse .item.active .title {
+        border-bottom-color: transparent;
+      }
+
+      .callapse .item.active .content {
+        height: auto;
+        padding-bottom: 20px;
+      }
+
+      .callapse .item .content {
+        height: 0;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="callapse">
+        <div class="item">
+          <div class="title">一致性 Consistency</div>
+          <div class="content">
+            与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；
+            在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">反馈 Feedback</div>
+          <div class="content">
+            控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；
+            页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">可控 Controllability</div>
+          <div class="content">
+            用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；
+            结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="callapse">
+        <div class="item">
+          <div class="title">一致性 Consistency</div>
+          <div class="content">
+            与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；
+            在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">反馈 Feedback</div>
+          <div class="content">
+            控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；
+            页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">可控 Controllability</div>
+          <div class="content">
+            用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；
+            结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => [...document.querySelectorAll(s)];
+
+      class Collapse {
+        constructor($container, accordion = false) {
+          this.$$items = $container.querySelectorAll(".callapse .item");
+          this.$$itemTittles = $container.querySelectorAll(".callapse .title");
+          this.type = accordion;
+
+          this.bind();
+        }
+
+        bind() {
+          const _self = this;
+          this.$$itemTittles.forEach(($title) => {
+            $title.onclick = function () {
+              console.log(_self.type);
+              if (_self.type) {
+                _self.$$items.forEach((item) => {
+                  item.classList.remove("active");
+                });
+                this.parentElement.classList.toggle("active");
+              } else {
+                this.parentElement.classList.toggle("active");
+              }
+            };
+          });
+        }
+      }
+
+      new Collapse($$(".container")[0]);
+      new Collapse($$(".container")[1], true);
+    </script>
+  </body>
+</html>
